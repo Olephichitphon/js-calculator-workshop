@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #dde3dd;
+        }
+
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            background-color: #f08686;
+            padding: 20px;
+        }
+
+        #display {
+            grid-column: span 4;
+        }
+
+        #ac {
+            grid-column: span 3;
+        }
+
+        #zero {
+            grid-column: span 2;
+        }
+
+        .calculator input[type="text"] {
+            padding: 10px;
+            font-size: 1.5rem;
+            text-align: right;
+            border: none;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .calculator input[type="button"] {
+            padding: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            background-color: rgb(124, 124, 223);
+            color: white;
+            border: none;
+
+            border-radius: 8px;
+
+
+
+            transition: all 0.2s ease-in-out;
+
+
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .calculator input[type="button"]:hover {
+            background-color: rgb(100, 100, 200);
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .calculator input[type="button"]:active {
+            transform: translateY(0);
+
+            background-color: rgb(80, 80, 180);
+
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            filter: brightness(0.9);
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+
+        <input id="ac" type="button" value="AC" onclick="clearDisplay()">
+        <input type="button" value="/" onclick="setOperator(event)">
+
+        <input type="button" value="7" onclick="setCurrentInput(event)">
+        <input type="button" value="8" onclick="setCurrentInput(event)">
+        <input type="button" value="9" onclick="setCurrentInput(event)">
+        <input type="button" value="*" onclick="setOperator(event)">
+
+        <input type="button" value="4" onclick="setCurrentInput(event)">
+        <input type="button" value="5" onclick="setCurrentInput(event)">
+        <input type="button" value="6" onclick="setCurrentInput(event)">
+        <input type="button" value="-" onclick="setOperator(event)">
+
+        <input type="button" value="1" onclick="setCurrentInput(event)">
+        <input type="button" value="2" onclick="setCurrentInput(event)">
+        <input type="button" value="3" onclick="setCurrentInput(event)">
+        <input type="button" value="+" onclick="setOperator(event)">
+
+        <input id="zero" type="button" value="0" onclick="setCurrentInput(event)">
+        <input type="button" value="." onclick="setCurrentInput(event)">
+        <input type="button" value="=" onclick="Calculator()">
+
+    </div>
+    <script>
+        let previousInput = 0;
+        let currentInput = 0;
+        let operator = "";
+        //clear display function
+        function clearDisplay() {
+            const displayDOM = document.getElementById("display");
+            displayDOM.value = "";
+            previousInput = 0;
+            currentInput = 0;
+            operator = "";
+        }
+
+        //calculator function
+        function Calculator() {
+            const displayDOM = document.getElementById("display");
+            // ลองคำนวณและเก็บไว้ในตัวแปร result ก่อน
+            const result = Calculate(Number(previousInput), Number(currentInput), operator);
+
+            console.log("previousInput =>", previousInput);
+            console.log("currentInput  =>", currentInput);
+            console.log("operator      =>", operator);
+            console.log("Result        =>", result);
+
+            // ✅ วิธีที่ถูกต้อง: ส่งค่าไปที่หน้าจอผ่าน .value
+            displayDOM.value = result;
+
+
+            currentInput = result;
+            previousInput = "";
+
+        }
+
+        function setCurrentInput(e) {
+            const displayDOM = document.getElementById("display");
+            displayDOM.value += e.target.value;
+
+            if (operator && displayDOM.value.includes(operator)) {
+                displayDOM.value = e.target.value;
+                previousInput = currentInput;
+            }
+            currentInput = displayDOM.value;
+        }
+
+        function setOperator(e) {
+            const displayDOM = document.getElementById("display");
+            displayDOM.value = e.target.value;
+            operator = e.target.value;
+        }
+        function Calculate(a, b, operator) {
+            let result = 0;
+
+            switch (operator) {
+                case "+":
+                    result = a + b;
+                    break;
+                case "-":
+                    result = a - b;
+                    break;
+                case "*":
+                    result = a * b;
+                    break;
+                case "/":
+                    if (b != 0) {
+                        result = a / b;
+                    } else {
+                        result = "Cannot divide by zero";
+                    }
+                    break;
+                default:
+                    result = "Invalid operator";
+            }return result;
+        }
+
+
+    </script>
+</body>
+
+</html>
