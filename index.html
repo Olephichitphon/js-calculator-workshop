@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop Calculator</title>
+    <link rel="stylesheet" href="style.css">
+
+
+
+    <script src="script.js"></script>
+</head>
+
+<body>
+
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+
+        <input id="ac" type="button" value="AC" onclick="clearDisplay()">
+        <input type="button" value="/" onclick="setOperator(event)">
+
+        <input type="button" value="7" onclick="setCurrentInput(event)">
+        <input type="button" value="8" onclick="setCurrentInput(event)">
+        <input type="button" value="9" onclick="setCurrentInput(event)">
+        <input type="button" value="*" onclick="setOperator(event)">
+
+        <input type="button" value="4" onclick="setCurrentInput(event)">
+        <input type="button" value="5" onclick="setCurrentInput(event)">
+        <input type="button" value="6" onclick="setCurrentInput(event)">
+        <input type="button" value="-" onclick="setOperator(event)">
+
+        <input type="button" value="1" onclick="setCurrentInput(event)">
+        <input type="button" value="2" onclick="setCurrentInput(event)">
+        <input type="button" value="3" onclick="setCurrentInput(event)">
+        <input type="button" value="+" onclick="setOperator(event)">
+
+        <input id="zero" type="button" value="0" onclick="setCurrentInput(event)">
+        <input type="button" value="." onclick="setCurrentInput(event)">
+        <input type="button" value="=" onclick="Calculator()">
+
+    </div>
+
+</body>
+
+</html>
